@@ -10,11 +10,13 @@ function Result(props) {
     const fetchData = async () => {
         const response = await fetch(`https://kitsu.io/api/edge//anime?filter[text]=${urlParams.title}`);
         const fetchedData = await response.json();
-        setIsFetched(true)
-        setAnimeList(fetchedData.data)
+        setAnimeList(fetchedData.data);
+        setIsFetched(true);
     }
 
-    useEffect(() => { fetchData() }, [isFetched]);
+    useEffect(() => {
+        fetchData()
+    }, [isFetched]);
 
 
     return(
@@ -22,8 +24,8 @@ function Result(props) {
             <h1> Search Results for: "{urlParams.title}" </h1>
             <Row>
             {animeList.map((anime) => (
-                <Link to="/">
-                    <Col key={ anime.id } className="p-3">
+                <Link to={{pathname: "/details", state: anime}} key={ anime.id }>
+                    <Col className="p-3">
                         <Card style={{ width: '18rem' }} bg="light">
                         <Card.Img variant="top" src={ anime.attributes.posterImage.small } />
                         <Card.Body>
