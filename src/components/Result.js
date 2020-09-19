@@ -8,14 +8,14 @@ function Result(props) {
     const [isFetched, setIsFetched] = useState(false);
     const [animeList, setAnimeList] = useState([]);
     const fetchData = async () => {
-        const response = await fetch(`https://kitsu.io/api/edge//anime?filter[text]=${urlParams.title}`);
+        const response = await fetch(`https://kitsu.io/api/edge/anime?filter[text]=${urlParams.title}`);
         const fetchedData = await response.json();
         setAnimeList(fetchedData.data);
         setIsFetched(true);
     }
 
     useEffect(() => {
-        fetchData()
+        fetchData();
     }, [isFetched]);
 
 
