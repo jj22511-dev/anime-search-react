@@ -4,26 +4,26 @@ import { Container, Card, Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 function Result(props) {
-    const urlParams = queryString.parse(props.location.search); // parse url query
-    const [isFetched, setIsFetched] = useState(false);
+    const title = queryString.parse(props.location.search).title;
     const [animeList, setAnimeList] = useState([]);
-    const fetchData = async () => {
-        const response = await fetch(`https://kitsu.io/api/edge/anime?filter[text]=${urlParams.title}`);
-        const fetchedData = await response.json();
-        setAnimeList(fetchedData.data);
-        setIsFetched(true);
-    }
-
+    
     useEffect(() => {
+        const urlParams = queryString.parse(props.location.search);
+        const fetchData = async () => {
+            const response = await fetch(`https://kitsu.io/api/edge/anime?filter[text]=${urlParams.title}`);
+            const fetchedData = await response.json();
+            setAnimeList(fetchedData.data);
+        }
+
         fetchData();
-    }, [isFetched]);
+    }, [props]);
 
 
     return(
         <Container>
-            <h1> Search Results for: "{urlParams.title}" </h1>
+            <h1> Search Results for: "{title}" </h1>
             <Row>
-            {animeList.map((anime) => (
+                {animeList.map((anime) => (
                 <Link to={{pathname: "/details", state: anime}} key={ anime.id }>
                     <Col className="p-3">
                         <Card style={{ width: '18rem' }} bg="light">

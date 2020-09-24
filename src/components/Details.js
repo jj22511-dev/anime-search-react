@@ -1,12 +1,12 @@
 import React from 'react';
-import { Card, Button, Container, Badge } from 'react-bootstrap';
+import { Card, Container, Badge } from 'react-bootstrap';
 
 
 function Details({ location }) {
     let state = location.state;
     let { attributes } = state;
-    console.log(attributes)
-    return(
+
+    return (
         <Container>
             <div className="pt-5">
                 <Card>
